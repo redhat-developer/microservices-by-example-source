@@ -45,8 +45,14 @@ public class BackendHttpServlet extends HttpServlet {
         response.setTime(System.currentTimeMillis());
         response.setIp(getIp());
 
-        PrintWriter out = resp.getWriter();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(out, response);
+        PrintWriter out;
+        try {
+            out = resp.getWriter();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(out, response);
+
+        } catch(IOException ioe) {
+            throw ioe;
+        }
     }
 
     private String getIp() {
